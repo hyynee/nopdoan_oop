@@ -46,7 +46,7 @@ public class ListRoomStandard implements TypeList {
     public int countRoomStandard() {
         int count = 0;
         try {
-            FileInputStream fileInputStream = new FileInputStream("./database/ListRoomStandard.txt");
+            FileInputStream fileInputStream = new FileInputStream("./nopdoan_oop/database/ListRoomStandard.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -67,7 +67,7 @@ public class ListRoomStandard implements TypeList {
 
     public void readListRoomStandard() {
         try {
-            FileInputStream fileInputStream = new FileInputStream("./database/ListRoomStandard.txt");
+            FileInputStream fileInputStream = new FileInputStream("./nopdoan_oop/database/ListRoomStandard.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -92,7 +92,7 @@ public class ListRoomStandard implements TypeList {
     public void updateListRoomStandard() {
         FileOutputStream fileOutputStream = null;
         try {
-            fileOutputStream = new FileOutputStream("./database/ListRoomStandard.txt");
+            fileOutputStream = new FileOutputStream("./nopdoan_oop/database/ListRoomStandard.txt");
             StringBuilder stringBuilder = new StringBuilder();
             for (int i = 0; i < n; i++) {
                 if (listRoom[i] != null) {

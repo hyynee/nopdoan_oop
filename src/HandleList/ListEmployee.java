@@ -33,7 +33,7 @@ public class ListEmployee implements TypeList {
     public int countEmployee() {
         int count = 0;
         try {
-            FileInputStream fileInputStream = new FileInputStream("./doan_oop/database/ListEmployee.txt");
+            FileInputStream fileInputStream = new FileInputStream("./nopdoan_oop/database/ListEmployee.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -54,7 +54,7 @@ public class ListEmployee implements TypeList {
 
     public void readListEmployee() {
         try {
-            FileInputStream fileInputStream = new FileInputStream("./doan_oop/database/ListEmployee.txt");
+            FileInputStream fileInputStream = new FileInputStream("./nopdoan_oop/database/ListEmployee.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -79,7 +79,7 @@ public class ListEmployee implements TypeList {
     public void updateListEmployee() {
         FileOutputStream fileOutputStream = null;
         try {
-            fileOutputStream = new FileOutputStream("./doan_oop/database/ListEmployee.txt");
+            fileOutputStream = new FileOutputStream("./nopdoan_oop/database/ListEmployee.txt");
             StringBuilder stringBuilder = new StringBuilder();
             for (int i = 0; i < n; i++) {
                 if (listEmployee[i] != null) {

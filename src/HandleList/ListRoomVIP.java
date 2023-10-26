@@ -1,14 +1,20 @@
 package HandleList;
 
-import AbstractCore.TypeList;
-import BaseConstructor.RoomVIP;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import AbstractCore.TypeList;
+import BaseConstructor.RoomVIP;
 
 public class ListRoomVIP implements TypeList {
     private int n;
@@ -18,7 +24,6 @@ public class ListRoomVIP implements TypeList {
     public ListRoomVIP() {
         n = 0;
     }
-
 
     public int getN() {
         return n;
@@ -44,12 +49,13 @@ public class ListRoomVIP implements TypeList {
         System.out.println();
     }
 
-    //    ------------------------------------------------------------------------------------------------------ //
+    // ------------------------------------------------------------------------------------------------------
+    // //
 
     public int countRoomVIP() {
         int count = 0;
         try {
-            FileInputStream fileInputStream = new FileInputStream("./database/ListRoomVIP.txt");
+            FileInputStream fileInputStream = new FileInputStream("./nopdoan_oop/database/ListRoomVIP.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -70,7 +76,7 @@ public class ListRoomVIP implements TypeList {
 
     public void readListRoomVIP() {
         try {
-            FileInputStream fileInputStream = new FileInputStream("./database/ListRoomVIP.txt");
+            FileInputStream fileInputStream = new FileInputStream("./nopdoan_oop/database/ListRoomVIP.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -96,7 +102,7 @@ public class ListRoomVIP implements TypeList {
     public void updateListRoomVIP() {
         FileOutputStream fileOutputStream = null;
         try {
-            fileOutputStream = new FileOutputStream("./database/ListRoomVIP.txt");
+            fileOutputStream = new FileOutputStream("./nopdoan_oop/database/ListRoomVIP.txt");
             StringBuilder stringBuilder = new StringBuilder();
             for (int i = 0; i < n; i++) {
                 if (listRoom[i] != null) {
@@ -141,7 +147,8 @@ public class ListRoomVIP implements TypeList {
         updateListRoomVIP();
     }
 
-//    ------------------------------------------------------------------------------------------------------ //
+    // ------------------------------------------------------------------------------------------------------
+    // //
 
     @Override
     public void add() {
@@ -176,8 +183,10 @@ public class ListRoomVIP implements TypeList {
                 break;
             }
         }
-        if(check) updateListRoomVIP();
-        else System.out.println("Khong tim thay ma khach hang");
+        if (check)
+            updateListRoomVIP();
+        else
+            System.out.println("Khong tim thay ma khach hang");
     }
 
     @Override
@@ -191,11 +200,11 @@ public class ListRoomVIP implements TypeList {
             String s = "^RV[0-9]{3}$";
             Pattern pattern = Pattern.compile(s);
             matcher = pattern.matcher(temp);
-        }while(!matcher.find());
+        } while (!matcher.find());
         boolean check = false;
-        for(int i = 0; i< n; i++){
+        for (int i = 0; i < n; i++) {
             String key = listRoom[i].getRoomVIPId();
-            if(key.contentEquals(temp)) {
+            if (key.contentEquals(temp)) {
                 check = true;
                 for (int j = i; j < n - 1; j++) {
                     listRoom[j] = listRoom[j + 1];
@@ -204,8 +213,10 @@ public class ListRoomVIP implements TypeList {
                 listRoom = Arrays.copyOf(listRoom, n);
             }
         }
-        if(check) updateListRoomVIP();
-        else System.out.println("Khong tin thay ma khach hang!");
+        if (check)
+            updateListRoomVIP();
+        else
+            System.out.println("Khong tin thay ma khach hang!");
     }
 
     @Override
@@ -246,7 +257,8 @@ public class ListRoomVIP implements TypeList {
                     } while (!matcher.find());
                     printLine();
                     System.out.printf("\u001B[44m| %-20s %-25s %-50s %-28s %-28s %-28s %-28s |\u001B[0m",
-                            "Ma phong", "Ten phong", "Chi tiet phong", "Gia moi gio", "Gia moi dem", "Gia moi ngay", "Trang thai");
+                            "Ma phong", "Ten phong", "Chi tiet phong", "Gia moi gio", "Gia moi dem", "Gia moi ngay",
+                            "Trang thai");
                     for (int i = 0; i < n; i++) {
                         String key = listRoom[i].getRoomVIPId();
                         if (key.contentEquals(temp)) {
@@ -267,7 +279,8 @@ public class ListRoomVIP implements TypeList {
                     } while (!matcher.find());
                     printLine();
                     System.out.printf("\u001B[44m| %-20s %-25s %-50s %-28s %-28s %-28s %-28s |\u001B[0m",
-                            "Ma phong", "Ten phong", "Chi tiet phong", "Gia moi gio", "Gia moi dem", "Gia moi ngay", "Trang thai");
+                            "Ma phong", "Ten phong", "Chi tiet phong", "Gia moi gio", "Gia moi dem", "Gia moi ngay",
+                            "Trang thai");
                     for (int i = 0; i < n; i++) {
                         String key = listRoom[i].getRoomVIPName().toLowerCase();
                         if (key.contains(temp.toLowerCase())) {
@@ -288,7 +301,8 @@ public class ListRoomVIP implements TypeList {
 
                     printLine();
                     System.out.printf("\u001B[44m| %-20s %-25s %-50s %-28s %-28s %-28s %-28s |\u001B[0m",
-                            "Ma phong", "Ten phong", "Chi tiet phong", "Gia moi gio", "Gia moi dem", "Gia moi ngay", "Trang thai");
+                            "Ma phong", "Ten phong", "Chi tiet phong", "Gia moi gio", "Gia moi dem", "Gia moi ngay",
+                            "Trang thai");
                     for (int i = 0; i < n; i++) {
                         String key = listRoom[i].getPricePerHour();
                         if (key.contentEquals(temp)) {
@@ -309,7 +323,8 @@ public class ListRoomVIP implements TypeList {
 
                     printLine();
                     System.out.printf("\u001B[44m| %-20s %-25s %-50s %-28s %-28s %-28s %-28s |\u001B[0m",
-                            "Ma phong", "Ten phong", "Chi tiet phong", "Gia moi gio", "Gia moi dem", "Gia moi ngay", "Trang thai");
+                            "Ma phong", "Ten phong", "Chi tiet phong", "Gia moi gio", "Gia moi dem", "Gia moi ngay",
+                            "Trang thai");
                     for (int i = 0; i < n; i++) {
                         String key = listRoom[i].getPricePerNight();
                         if (key.contentEquals(temp)) {
@@ -330,7 +345,8 @@ public class ListRoomVIP implements TypeList {
 
                     printLine();
                     System.out.printf("\u001B[44m| %-20s %-25s %-50s %-28s %-28s %-28s %-28s |\u001B[0m",
-                            "Ma phong", "Ten phong", "Chi tiet phong", "Gia moi gio", "Gia moi dem", "Gia moi ngay", "Trang thai");
+                            "Ma phong", "Ten phong", "Chi tiet phong", "Gia moi gio", "Gia moi dem", "Gia moi ngay",
+                            "Trang thai");
                     for (int i = 0; i < n; i++) {
                         String key = listRoom[i].getPricePerDay();
                         if (key.contentEquals(temp)) {
@@ -347,7 +363,7 @@ public class ListRoomVIP implements TypeList {
                     System.out.println("Loi lua chon! Vui long chon lai");
                     break;
             }
-        }while (select != 0) ;
+        } while (select != 0);
     }
 
     @Override

@@ -49,7 +49,7 @@ public class ListBooking implements TypeList {
     public int countBooking() {
         int count = 0;
         try {
-            FileInputStream fileInputStream = new FileInputStream("./doan_oop/database/ListBooking.txt");
+            FileInputStream fileInputStream = new FileInputStream("./nopdoan_oop/database/ListBooking.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -71,7 +71,7 @@ public class ListBooking implements TypeList {
 
     public void readListBooking() {
         try {
-            FileInputStream fileInputStream = new FileInputStream("./doan_oop/database/ListBooking.txt");
+            FileInputStream fileInputStream = new FileInputStream("./nopdoan_oop/database/ListBooking.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -96,7 +96,7 @@ public class ListBooking implements TypeList {
     public void updateBooking() {
         FileOutputStream fileOutputStream = null;
         try {
-            fileOutputStream = new FileOutputStream("./doan_oop/database/ListBooking.txt");
+            fileOutputStream = new FileOutputStream("./nopdoan_oop/database/ListBooking.txt");
             StringBuilder stringBuilder = new StringBuilder();
             for (int i = 0; i < n; i++) {
                 if (listBooking[i] != null) {

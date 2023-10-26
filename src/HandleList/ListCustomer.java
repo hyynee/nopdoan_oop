@@ -46,7 +46,7 @@ public class ListCustomer implements TypeList{
     public int countCustomer(){
         int count = 0;
         try {
-            FileInputStream fileInputStream = new FileInputStream("./doan_oop/database/ListCustomer.txt");
+            FileInputStream fileInputStream = new FileInputStream("./nopdoan_oop/database/ListCustomer.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -66,7 +66,7 @@ public class ListCustomer implements TypeList{
     }
     public void readListCustomer(){
         try {
-            FileInputStream fileInputStream = new FileInputStream("./doan_oop/database/ListCustomer.txt");
+            FileInputStream fileInputStream = new FileInputStream("./nopdoan_oop/database/ListCustomer.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -90,7 +90,7 @@ public class ListCustomer implements TypeList{
     public void updateListCustomer(){
         FileOutputStream fileOutputStream = null;
         try {
-            fileOutputStream = new FileOutputStream("./doan_oop/database/ListCustomer.txt");
+            fileOutputStream = new FileOutputStream("./nopdoan_oop/database/ListCustomer.txt");
             StringBuilder stringBuilder = new StringBuilder();
             for (int i = 0; i < n; i++) {
                 if (listCustomer[i] != null) {
