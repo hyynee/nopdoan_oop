@@ -1,4 +1,4 @@
-NV01;Vu Ba Kiet;135B Tay Lan;21;0976398402;Quan ly;20.000.000 vnd
+NV01;Nguyen Anh Huy;135B Tay Lan;21;0976398402;Quan ly;20.000.000 vnd
 NV02;Tai;321 Tay Lan;26;0783574761;Lao cong;10.000.000 vnd
 NV03;Nam;135 Hoang Van Thu;21;0976398123;Quan ly;20.000.000 vnd
 NV04;Tuan;321 Hoang Van Thu;26;0783574345;Lao cong;10.000.000 vnd
@@ -7,4 +7,4 @@ NV06;Hai;120 Le Van Si;26;0783574789;Lao cong;10.000.000 vnd
 NV07;Suong;200 Truong Cong Dinh;21;0976398987;Quan ly;20.000.000 vnd
 NV08;Trang;320 Trinh Dinh Trong;26;0783574765;Lao cong;10.000.000 vnd
 NV09;Kien;1350 Trinh Dinh Thao;21;0976398543;Quan ly;20.000.000 vnd
-NV10;Quan;Luy Ban Bich;26;0783574321;Lao cong;10.000.000 vnd
+NV11;HUYANH;TPHCM;20;1233211231;Tiep tan;15.000.000 vnd

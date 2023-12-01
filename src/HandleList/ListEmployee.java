@@ -1,35 +1,27 @@
 package HandleList;
-
 import AbstractCore.TypeList;
 import BaseConstructor.Employee;
 import OverrideCore.Cleanner;
 import OverrideCore.Manager;
 import OverrideCore.Receptionist;
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 public class ListEmployee implements TypeList {
     private int n;
     private Employee[] listEmployee;
-
     Scanner sc = new Scanner(System.in);
-
     public ListEmployee() {
         n = 0;
     }
-
-
     public static void printLine() {
         for (int i = 0; i < 130; i++) {
             System.out.print("=");
         }
     }
-
     public int countEmployee() {
         int count = 0;
         try {
@@ -51,7 +43,6 @@ public class ListEmployee implements TypeList {
         }
         return count;
     }
-
     public void readListEmployee() {
         try {
             FileInputStream fileInputStream = new FileInputStream("./nopdoan_oop/database/ListEmployee.txt");
@@ -75,7 +66,6 @@ public class ListEmployee implements TypeList {
             e.printStackTrace();
         }
     }
-
     public void updateListEmployee() {
         FileOutputStream fileOutputStream = null;
         try {
@@ -111,7 +101,6 @@ public class ListEmployee implements TypeList {
             }
         }
     }
-
     public void addToListEmployee(Employee employee) {
         listEmployee = Arrays.copyOf(listEmployee, n + 1);
         for (int i = 0; i < n + 1; i++) {
@@ -122,8 +111,6 @@ public class ListEmployee implements TypeList {
         n++;
         updateListEmployee();
     }
-
-
     @Override
     public void add() {
         Matcher matcher;
@@ -139,7 +126,6 @@ public class ListEmployee implements TypeList {
             System.out.println("| 3. Them nhan vien Quan ly                   |");
             System.out.println("| 0. Tro ve                                   |");
             System.out.println("+---------------------------------------------+");
-
             do {
                 System.out.print("Nhap lua chon: ");
                 selectTemp = sc.nextLine();
@@ -148,7 +134,6 @@ public class ListEmployee implements TypeList {
                 matcher = pattern.matcher(selectTemp);
             }while (!matcher.find());
             select = Integer.parseInt(selectTemp);
-
             switch (select){
                 case 1:
                     Employee emp1 = new Receptionist();
@@ -181,7 +166,6 @@ public class ListEmployee implements TypeList {
 
         }while (select != 0);
     }
-
     @Override
     public void edit() {
         Matcher matcher;
@@ -209,7 +193,6 @@ public class ListEmployee implements TypeList {
                     System.out.println("| 3. Nhan vien Quan ly                        |");
                     System.out.println("| 0. Tro ve                                   |");
                     System.out.println("+---------------------------------------------+");
-
                     do {
                         System.out.print("Nhap lua chon: ");
                         selectTemp = sc.nextLine();
@@ -218,7 +201,6 @@ public class ListEmployee implements TypeList {
                         matcher = pattern.matcher(selectTemp);
                     } while (!matcher.find());
                     select = Integer.parseInt(selectTemp);
-
                     switch (select) {
                         case 1:
                             Employee emp1 = new Receptionist();

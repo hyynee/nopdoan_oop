@@ -6,5 +6,4 @@ public interface TypeList {
     void remove();
     void find();
     void display();
-
 }

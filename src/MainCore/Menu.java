@@ -10,14 +10,17 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+
+
 public class Menu {
     Scanner sc = new Scanner(System.in);
-
+    
     public void mainMenu() {
         Matcher matcher;
         String selectTemp;
         int select;
-
+        
         do {
             System.out.println("+---------------------------------------------+");
             System.out.println("|        Quan li khach san                    |");
