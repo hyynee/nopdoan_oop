@@ -1,10 +1,17 @@
 package BaseConstructor;
 
+import HandleList.ListBooking;
 import HandleList.ListCustomer;
 import HandleList.ListRoomStandard;
 import HandleList.ListRoomVIP;
 import MainCore.Room;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -96,7 +103,6 @@ public class Booking {
         this.createAt = createAt;
     }
 
-
     public String getPaymentMethod() {
         return paymentMethod;
     }
@@ -137,17 +143,25 @@ public class Booking {
         this.toTime = toTime;
     }
 
+    public void addCustomerID() {
+        ListBooking listBooking = new ListBooking();
+        if (listBooking.countBooking() < 9) {
+            setBookingId("BK0" + (listBooking.countBooking() + 1));
+        } else {
+            setBookingId("BK" + (listBooking.countBooking() + 1));
+        }
+    }
 
     public void inputForBooking() {
         Matcher matcher;
 
-        do {
-            System.out.print("Nhap ma don dat phong (ex: BK**): ");
-            setBookingId(sc.nextLine());
-            String s = "^BK[0-9]{2}$";
-            Pattern pattern = Pattern.compile(s);
-            matcher = pattern.matcher(getBookingId());
-        } while (!matcher.find());
+        // do {
+        // System.out.print("Nhap ma don dat phong (ex: BK**): ");
+        // setBookingId(sc.nextLine());
+        // String s = "^BK[0-9]{2}$";
+        // Pattern pattern = Pattern.compile(s);
+        // matcher = pattern.matcher(getBookingId());
+        // } while (!matcher.find());
 
         do {
             System.out.print("Nhap ho ten khach hang: ");
@@ -165,7 +179,6 @@ public class Booking {
             matcher = pattern.matcher(getEmployeeName());
         } while (!matcher.find());
 
-
         String selectTemp;
         int select;
         Matcher matcherType;
@@ -175,7 +188,7 @@ public class Booking {
             System.out.println("| ------------=====------------|");
             System.out.println("| 1. Phong VIP                 |");
             System.out.println("| 2. Phong Standard            |");
-//            System.out.println("| 0. Tro lai                   |");
+            // System.out.println("| 0. Tro lai |");
             System.out.println("+------------------------------+");
 
             do {
@@ -205,12 +218,13 @@ public class Booking {
 
                     boolean check = false;
 
-                    //Tim phong trong database
+                    // Tim phong trong database
                     for (RoomVIP roomVIP : roomVIPs) {
                         String key = roomVIP.getRoomVIPId();
                         String keyStatusRV = roomVIP.getStatusRoomVIP().toLowerCase();
                         String statusRVAvailable = "available";
-                        if (key.contentEquals(roomVIPId) && keyStatusRV.contentEquals(statusRVAvailable.toLowerCase())) {
+                        if (key.contentEquals(roomVIPId)
+                                && keyStatusRV.contentEquals(statusRVAvailable.toLowerCase())) {
                             setRoomId(key);
                             int selectTypeTime;
                             String selectTypeTimeTemp;
@@ -223,7 +237,7 @@ public class Booking {
                                 System.out.println("| 1. Theo gio                  |");
                                 System.out.println("| 2. Theo dem                  |");
                                 System.out.println("| 3. Theo ngay                 |");
-//                                    System.out.println("| 0. Tro lai                   |");
+                                // System.out.println("| 0. Tro lai |");
                                 System.out.println("+------------------------------+");
 
                                 do {
@@ -246,6 +260,17 @@ public class Booking {
                                         setFromTime(sc.nextLine());
                                         System.out.print("Nhap gio tra phong: ");
                                         setToTime(sc.nextLine());
+                                        // while (Integer.parseInt(getToTime()) <= Integer.parseInt(getFromTime())
+                                        // || Integer.parseInt(getToTime())
+                                        // - Integer.parseInt(getFromTime()) != getTime()) {
+                                        // System.out.println("Nhap du lieu khong hop le!");
+                                        // System.out.print("Nhap so gio: ");
+                                        // setTime(Integer.parseInt(sc.nextLine()));
+                                        // System.out.print("Nhap gio nhan phong: ");
+                                        // setFromTime(sc.nextLine());
+                                        // System.out.print("Nhap gio tra phong: ");
+                                        // setToTime(sc.nextLine());
+                                        // }
                                         roomVIP.setStatusRoomVIP("booking");
                                         listRoomVIP.updateListRoomVIP();
                                         setTotalPrice(getTime() * Double.parseDouble(roomVIP.getPricePerHour()));
@@ -298,12 +323,12 @@ public class Booking {
                                         listRoomVIP.updateListRoomVIP();
                                         setTotalPrice(getTime() * Double.parseDouble(roomVIP.getPricePerDay()));
                                         break;
-//                                        case 0:
-//                                            System.out.println("Tro lai");
-//                                            break;
-//                                        default:
-//                                            System.out.println("Loi lua chon! Vui long nhap lai");
-//                                            break;
+                                    // case 0:
+                                    // System.out.println("Tro lai");
+                                    // break;
+                                    // default:
+                                    // System.out.println("Loi lua chon! Vui long nhap lai");
+                                    // break;
                                 }
 
                             } while (selectTypeTime < 1 || selectTypeTime > 3);
@@ -314,10 +339,11 @@ public class Booking {
                     }
 
                     if (!check) {
-                        System.out.printf("\u001B[41m| Khong tim thay ma phong %s Hoac phong %s da duoc dat |\u001B[0m \n", roomVIPId, roomVIPId);
+                        System.out.printf(
+                                "\u001B[41m| Khong tim thay ma phong %s Hoac phong %s da duoc dat |\u001B[0m \n",
+                                roomVIPId, roomVIPId);
                         break;
-                    }
-                    else{
+                    } else {
                         do {
                             System.out.print("Nhap ngay dat phong (ex: **/**/****): ");
                             setCreateAt(sc.nextLine());
@@ -335,7 +361,7 @@ public class Booking {
                             System.out.println("| ------------------=====-------------------|");
                             System.out.println("| 1. Bang tien mat                          |");
                             System.out.println("| 2. Bang the                               |");
-//                        System.out.println("| 0. Tro lai                                |");
+                            // System.out.println("| 0. Tro lai |");
                             System.out.println("+-------------------------------------------+");
 
                             do {
@@ -356,12 +382,12 @@ public class Booking {
                                     System.out.println("Ban chon tra bang the");
                                     setPaymentMethod("the");
                                     break;
-//                            case 0:
-//                                System.out.println("Tro lai");
-//                                break;
-//                            default:
-//                                System.out.println("Loi lua chon! Vui long chon lai");
-//                                break;
+                                // case 0:
+                                // System.out.println("Tro lai");
+                                // break;
+                                // default:
+                                // System.out.println("Loi lua chon! Vui long chon lai");
+                                // break;
 
                             }
 
@@ -383,10 +409,8 @@ public class Booking {
                         break;
                     }
 
-
-
-
-// ket thuc case 1 --------------------------------------------------------------------------------------
+                    // ket thuc case 1
+                    // --------------------------------------------------------------------------------------
 
                 case 2:
                     System.out.println("Ban chon phong Standard");
@@ -405,12 +429,13 @@ public class Booking {
 
                     boolean check2 = false;
 
-                    //Tim phong trong database
+                    // Tim phong trong database
                     for (RoomStandard roomStandard : roomStandards) {
                         String key = roomStandard.getRoomStandardId();
                         String keyStatusRS = roomStandard.getStatusRoomStandard().toLowerCase();
                         String statusRSAvailable = "available";
-                        if (key.contentEquals(roomStandardId) && keyStatusRS.contentEquals(statusRSAvailable.toLowerCase())) {
+                        if (key.contentEquals(roomStandardId)
+                                && keyStatusRS.contentEquals(statusRSAvailable.toLowerCase())) {
                             setRoomId(key);
                             int selectTypeTime;
                             String selectTypeTimeTemp;
@@ -423,7 +448,7 @@ public class Booking {
                                 System.out.println("| 1. Theo gio                  |");
                                 System.out.println("| 2. Theo dem                  |");
                                 System.out.println("| 3. Theo ngay                 |");
-//                                    System.out.println("| 0. Tro lai                   |");
+                                // System.out.println("| 0. Tro lai |");
                                 System.out.println("+------------------------------+");
 
                                 do {
@@ -498,12 +523,12 @@ public class Booking {
                                         listRoomStandard.updateListRoomStandard();
                                         setTotalPrice(getTime() * Double.parseDouble(roomStandard.getPricePerDay()));
                                         break;
-//                                        case 0:
-//                                            System.out.println("Tro lai");
-//                                            break;
-//                                        default:
-//                                            System.out.println("Loi lua chon! Vui long nhap lai");
-//                                            break;
+                                    // case 0:
+                                    // System.out.println("Tro lai");
+                                    // break;
+                                    // default:
+                                    // System.out.println("Loi lua chon! Vui long nhap lai");
+                                    // break;
                                 }
 
                             } while (selectTypeTime < 1 || selectTypeTime > 3);
@@ -512,10 +537,12 @@ public class Booking {
                         }
                     }
 
-                    if (!check2){
-                        System.out.printf("\u001B[41m| Khong tim thay ma phong %s Hoac phong %s da duoc dat |\u001B[0m \n", roomStandardId, roomStandardId);
+                    if (!check2) {
+                        System.out.printf(
+                                "\u001B[41m| Khong tim thay ma phong %s Hoac phong %s da duoc dat |\u001B[0m \n",
+                                roomStandardId, roomStandardId);
                         break;
-                    }else{
+                    } else {
                         do {
                             System.out.print("Nhap ngay dat phong (ex: **/**/****): ");
                             setCreateAt(sc.nextLine());
@@ -533,7 +560,7 @@ public class Booking {
                             System.out.println("| ------------------=====-------------------|");
                             System.out.println("| 1. Bang tien mat                          |");
                             System.out.println("| 2. Bang the                               |");
-//                        System.out.println("| 0. Tro lai                                |");
+                            // System.out.println("| 0. Tro lai |");
                             System.out.println("+-------------------------------------------+");
 
                             do {
@@ -554,12 +581,12 @@ public class Booking {
                                     System.out.println("Ban chon tra bang the");
                                     setPaymentMethod("the");
                                     break;
-//                            case 0:
-//                                System.out.println("Tro lai");
-//                                break;
-//                            default:
-//                                System.out.println("Loi lua chon! Vui long chon lai");
-//                                break;
+                                // case 0:
+                                // System.out.println("Tro lai");
+                                // break;
+                                // default:
+                                // System.out.println("Loi lua chon! Vui long chon lai");
+                                // break;
 
                             }
 
@@ -580,26 +607,24 @@ public class Booking {
 
                         break;
                     }
-//                case 0:
-//                    System.out.println("Tro ra");
-//                    break;
-//                default:
-//                    System.out.println("Loi lua chon! Vui long chon lai");
-//                    break;
+                    // case 0:
+                    // System.out.println("Tro ra");
+                    // break;
+                    // default:
+                    // System.out.println("Loi lua chon! Vui long chon lai");
+                    // break;
             }
-
 
         } while (select < 1 || select > 2);
 
-
-
     }
-//------------Ket thuc input----------------------------------------------------------------------------------
-
+    // ------------Ket thuc
+    // input----------------------------------------------------------------------------------
 
     public void output() {
         System.out.printf("\n| %-15s %-20s %-20s %-20s %-25s %-15s %-30s %-30s %-30s %-20s %-23s |",
-                getBookingId(), getCustomerName(), getEmployeeName(), getRoomId(), getTypeTime(), getTime(), getFromTime(), getToTime(), getCreateAt(), getPaymentMethod(), getTotalPrice());
+                getBookingId(), getCustomerName(), getEmployeeName(), getRoomId(), getTypeTime(), getTime(),
+                getFromTime(), getToTime(), getCreateAt(), getPaymentMethod(), getTotalPrice());
     }
 
     public void getLineFromFile(String line) {
@@ -639,15 +664,16 @@ public class Booking {
 
     public String mergeInformationToFile() {
         return String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s",
-                getBookingId(), getCustomerName(), getEmployeeName(), getRoomId(), getTypeTime(), getTime(), getFromTime(), getToTime(), getCreateAt(), getPaymentMethod(), getTotalPrice());
+                getBookingId(), getCustomerName(), getEmployeeName(), getRoomId(), getTypeTime(), getTime(),
+                getFromTime(), getToTime(), getCreateAt(), getPaymentMethod(), getTotalPrice());
     }
 
     public void roomDetails() {
-//        printLine();
+        // printLine();
         System.out.printf("\u001B[44m| %-20s %-25s %-50s %-28s %-28s %-28s %-28s |\u001B[0m",
                 "Ma phong", "Ten phong", "Chi tiet phong", "Gia moi gio", "Gia moi dem", "Gia moi ngay", "Trang thai");
         getRoom().output();
-//        printLine();
+        // printLine();
     }
 
 }

@@ -5,7 +5,6 @@ import BaseConstructor.Customer;
 import OverrideCore.CustomerVIP;
 import OverrideCore.CustomerNormal;
 
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -13,13 +12,13 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ListCustomer implements TypeList{
+public class ListCustomer implements TypeList {
     private int n;
     private Customer[] listCustomer;
 
     Scanner sc = new Scanner(System.in);
 
-    public ListCustomer(){
+    public ListCustomer() {
         n = 0;
     }
 
@@ -29,21 +28,21 @@ public class ListCustomer implements TypeList{
 
     }
 
-    public String getCustomerName(int i){
+    public String getCustomerName(int i) {
         return listCustomer[i].getName();
     }
 
-    public String getTypeCustomer(int i){
+    public String getTypeCustomer(int i) {
         return listCustomer[i].getTypeCustomer();
     }
 
-    public static void printLine(){
-        for (int i = 0;i < 119; i++){
+    public static void printLine() {
+        for (int i = 0; i < 119; i++) {
             System.out.print("=");
         }
     }
 
-    public int countCustomer(){
+    public int countCustomer() {
         int count = 0;
         try {
             FileInputStream fileInputStream = new FileInputStream("./nopdoan_oop/database/ListCustomer.txt");
@@ -56,15 +55,16 @@ public class ListCustomer implements TypeList{
                     count++;
                 }
                 n = count;
-            } catch(IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-        }catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         return count;
     }
-    public void readListCustomer(){
+
+    public void readListCustomer() {
         try {
             FileInputStream fileInputStream = new FileInputStream("./nopdoan_oop/database/ListCustomer.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
@@ -87,7 +87,8 @@ public class ListCustomer implements TypeList{
             e.printStackTrace();
         }
     }
-    public void updateListCustomer(){
+
+    public void updateListCustomer() {
         FileOutputStream fileOutputStream = null;
         try {
             fileOutputStream = new FileOutputStream("./nopdoan_oop/database/ListCustomer.txt");
@@ -122,7 +123,8 @@ public class ListCustomer implements TypeList{
             }
         }
     }
-    public void addToListCustomer(Customer customer){
+
+    public void addToListCustomer(Customer customer) {
         listCustomer = Arrays.copyOf(listCustomer, n + 1);
         for (int i = 0; i < n + 1; i++) {
             if (i == n) {
@@ -132,13 +134,14 @@ public class ListCustomer implements TypeList{
         n++;
         updateListCustomer();
     }
+
     @Override
-    public void add(){
+    public void add() {
         Matcher matcher;
         String selectTemp;
         int select;
 
-        do{
+        do {
             System.out.println("+----------------------------------------------+");
             System.out.println("|                Loai Khach hang               |");
             System.out.println("| -------------------=====---------------------|");
@@ -147,35 +150,38 @@ public class ListCustomer implements TypeList{
             System.out.println("| 0. Tro ve                                    |");
             System.out.println("+----------------------------------------------+");
 
-            do{
+            do {
                 System.out.print("Nhap lua chon: ");
                 selectTemp = sc.nextLine();
                 String check = "^[0-9]{1}";
                 Pattern pattern = Pattern.compile(check);
                 matcher = pattern.matcher(selectTemp);
-            }while(!matcher.find());
+            } while (!matcher.find());
             select = Integer.parseInt(selectTemp);
 
-            switch(select){
+            switch (select) {
                 case 1:
                     Customer cus1 = new CustomerNormal();
                     cus1.inputForCustomer();
+                    cus1.addCustomerID();
                     cus1.typeCustomer();
                     addToListCustomer(cus1);
                     break;
                 case 2:
                     Customer cus2 = new CustomerVIP();
                     cus2.inputForCustomer();
+                    cus2.addCustomerID();
                     cus2.typeCustomer();
                     addToListCustomer(cus2);
                     break;
                 case 0:
                     break;
             }
-        }while( select !=0);
+        } while (select != 0);
     }
+
     @Override
-    public void edit(){
+    public void edit() {
         Matcher matcher;
         String temp, selectTemp;
         int select;
@@ -186,14 +192,14 @@ public class ListCustomer implements TypeList{
             String s = "^KH[0-9]{2}$";
             Pattern pattern = Pattern.compile(s);
             matcher = pattern.matcher(temp);
-        }while (!matcher.find());
+        } while (!matcher.find());
 
         boolean check = false;
-        for(int i = 0; i < n; i++){
+        for (int i = 0; i < n; i++) {
             String key = listCustomer[i].getCustomerld();
-            if(key.contentEquals(temp)){
+            if (key.contentEquals(temp)) {
                 check = true;
-                do{
+                do {
                     System.out.println("+----------------------------------------------+");
                     System.out.println("|                Loai Khach hang               |");
                     System.out.println("| -------------------=====---------------------|");
@@ -202,20 +208,21 @@ public class ListCustomer implements TypeList{
                     System.out.println("| 0. Tro ve                                    |");
                     System.out.println("+----------------------------------------------+");
 
-                    do{
+                    do {
                         System.out.print("Nhap lua chon: ");
                         selectTemp = sc.nextLine();
                         String s = "^[0-9]{1}";
                         Pattern pattern = Pattern.compile(s);
                         matcher = pattern.matcher(selectTemp);
-                    }while(!matcher.find());
+                    } while (!matcher.find());
                     select = Integer.parseInt(selectTemp);
 
-                    switch(select){
+                    switch (select) {
                         case 1:
                             Customer cus1 = new CustomerNormal();
                             System.out.println("Nhap thong tin khach hang!");
                             cus1.inputForCustomer();
+                            cus1.setCustomerld(key);
                             cus1.typeCustomer();
                             listCustomer[i] = cus1;
                             break;
@@ -223,21 +230,24 @@ public class ListCustomer implements TypeList{
                             Customer cus2 = new CustomerVIP();
                             System.out.println("Nhap thong tin khach hang!");
                             cus2.inputForCustomer();
+                            cus2.setCustomerld(key);
                             cus2.typeCustomer();
                             listCustomer[i] = cus2;
                             break;
                         case 0:
                             break;
                     }
-                }while( select !=0);
+                } while (select != 0);
             }
         }
-        if(check) updateListCustomer();
-        else System.out.println("Khong tim thay ma khach hang");
+        if (check)
+            updateListCustomer();
+        else
+            System.out.println("Khong tim thay ma khach hang");
     }
 
     @Override
-    public void remove(){
+    public void remove() {
         Matcher matcher;
         String temp;
         display();
@@ -247,11 +257,11 @@ public class ListCustomer implements TypeList{
             String s = "^KH[0-9]{2}$";
             Pattern pattern = Pattern.compile(s);
             matcher = pattern.matcher(temp);
-        }while(!matcher.find());
+        } while (!matcher.find());
         boolean check = false;
-        for(int i = 0; i< n; i++){
+        for (int i = 0; i < n; i++) {
             String key = listCustomer[i].getCustomerld();
-            if(key.contentEquals(temp)) {
+            if (key.contentEquals(temp)) {
                 check = true;
                 for (int j = i; j < n - 1; j++) {
                     listCustomer[j] = listCustomer[j + 1];
@@ -260,12 +270,14 @@ public class ListCustomer implements TypeList{
                 listCustomer = Arrays.copyOf(listCustomer, n);
             }
         }
-        if(check) updateListCustomer();
-        else System.out.println("Khong tin thay ma khach hang!");
+        if (check)
+            updateListCustomer();
+        else
+            System.out.println("Khong tin thay ma khach hang!");
     }
 
     @Override
-    public void find(){
+    public void find() {
         Matcher matcher;
         String temp;
         String selectTemp;
@@ -473,12 +485,13 @@ public class ListCustomer implements TypeList{
         } while (select != 0);
 
     }
+
     @Override
-    public void display(){
+    public void display() {
         printLine();
         System.out.printf("\n\u001B[44m|%-10s %-20s %-30s %-10s %-25s %-15s |\u001B[0m\n",
                 " Ma KH", " Ho Ten", " Dia Chi", " Tuoi", " So Dien Thoai", " Phan Loai Khach");
-        for (int i =0; i < n ;i++){
+        for (int i = 0; i < n; i++) {
             listCustomer[i].output();
         }
         printLine();

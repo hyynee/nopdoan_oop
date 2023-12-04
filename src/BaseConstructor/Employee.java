@@ -5,14 +5,16 @@ import MainCore.Person;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import HandleList.ListCustomer;
+import HandleList.ListEmployee;
+
 public class Employee extends Person {
-     private String employeeId;
-     protected String position;
-     protected String salary;
+    private String employeeId;
+    protected String position;
+    protected String salary;
 
     public Employee() {
     }
-
 
     public String getEmployeeId() {
         return employeeId;
@@ -38,15 +40,24 @@ public class Employee extends Person {
         this.salary = salary;
     }
 
-    public void inputForEmployee(){
+    public void addEmployeeID() {
+        ListEmployee listEmployee = new ListEmployee();
+        if (listEmployee.countEmployee() < 9) {
+            setEmployeeId("NV0" + (listEmployee.countEmployee() + 1));
+        } else {
+            setEmployeeId("NV" + (listEmployee.countEmployee() + 1));
+        }
+    }
+
+    public void inputForEmployee() {
         Matcher matcher;
-        do{
-            System.out.print("Nhap ma nhan vien: ");
-            setEmployeeId(sc.nextLine());
-            String s = "^NV[0-9]{2}$";
-            Pattern pattern = Pattern.compile(s);
-            matcher = pattern.matcher(getEmployeeId());
-        }while (!matcher.find());
+        // do {
+        // System.out.print("Nhap ma nhan vien: ");
+        // setEmployeeId(sc.nextLine());
+        // String s = "^NV[0-9]{2}$";
+        // Pattern pattern = Pattern.compile(s);
+        // matcher = pattern.matcher(getEmployeeId());
+        // } while (!matcher.find());
 
         do {
             System.out.print("Nhap ten nhan vien: ");
@@ -54,44 +65,47 @@ public class Employee extends Person {
             String s = "[^0-9]";
             Pattern pattern = Pattern.compile(s);
             matcher = pattern.matcher(super.getName());
-        }while (!matcher.find());
+        } while (!matcher.find());
 
         System.out.print("Nhap dia chi nhan vien: ");
         super.setAddress(sc.nextLine());
 
-        do{
+        do {
             System.out.print("Nhap tuoi nhan vien: ");
             super.setAge(sc.nextLine());
             String s = "^[0-9]{2}";
             Pattern pattern = Pattern.compile(s);
             matcher = pattern.matcher(super.getAge());
-        }while (!matcher.find());
+        } while (!matcher.find());
 
-        do{
+        do {
             System.out.print("Nhap so dien thoai nhan vien: ");
             super.setPhone(sc.nextLine());
             String s = "^[0-9]{10,11}";
             Pattern pattern = Pattern.compile(s);
             matcher = pattern.matcher(super.getPhone());
-        }while (!matcher.find());
+        } while (!matcher.find());
     }
 
-    public void position(){
+    public void position() {
         setPosition("none");
     }
-    public void salary(){
+
+    public void salary() {
         setSalary("none");
     }
 
-    public void receptionist(){
+    public void receptionist() {
         setPosition("Tiep tan");
         setSalary("15.000.000 vnd");
     }
-    public void cleanner(){
+
+    public void cleanner() {
         setPosition("Lao cong");
         setSalary("10.000.000 vnd");
     }
-    public void manager(){
+
+    public void manager() {
         setPosition("Quan ly");
         setSalary("20.000.000 vnd");
     }
@@ -99,7 +113,8 @@ public class Employee extends Person {
     @Override
     public String toString() {
         return String.format("| %-10s %-20s %-30s %-10s %-15s %-15s %-20s |",
-                getEmployeeId(), super.getName(), super.getAddress(), super.getAge(), super.getPhone(), getPosition(), getSalary());
+                getEmployeeId(), super.getName(), super.getAddress(), super.getAge(), super.getPhone(), getPosition(),
+                getSalary());
     }
 
     @Override
@@ -121,6 +136,7 @@ public class Employee extends Person {
 
     @Override
     public String mergeInformationToFile() {
-        return String.format("%s;%s;%s;%s;%s;%s;%s",getEmployeeId(), super.getName(), super.getAddress(), super.getAge(),super.getPhone(), getPosition(), getSalary());
+        return String.format("%s;%s;%s;%s;%s;%s;%s", getEmployeeId(), super.getName(), super.getAddress(),
+                super.getAge(), super.getPhone(), getPosition(), getSalary());
     }
 }

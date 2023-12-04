@@ -13,6 +13,7 @@ public class Main {
         String password = sc.nextLine();
         return "admin".equals(username) && "admin".equals(password);
     }
+
     public static void main(String[] args) {
         boolean loggedIn = false;
         do {

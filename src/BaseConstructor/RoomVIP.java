@@ -5,15 +5,16 @@ import MainCore.Room;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import HandleList.ListRoomStandard;
+import HandleList.ListRoomVIP;
+
 public class RoomVIP extends Room {
     private String roomVIPId;
     private String pricePerHour, pricePerNight, pricePerDay;
     private Room roomDetails = new Room();
 
-
     public RoomVIP() {
     }
-
 
     public String getRoomVIPId() {
         return roomVIPId;
@@ -47,15 +48,26 @@ public class RoomVIP extends Room {
         this.pricePerDay = pricePerDay;
     }
 
+    public void addRoomVIPID() {
+        ListRoomVIP listRoomVIP = new ListRoomVIP();
+        if (listRoomVIP.countRoomVIP() < 9) {
+            setRoomVIPId("RV00" + (listRoomVIP.countRoomVIP() + 1));
+        } else if (listRoomVIP.countRoomVIP() < 99 && listRoomVIP.countRoomVIP() > 9) {
+            setRoomVIPId("RV0" + (listRoomVIP.countRoomVIP() + 1));
+        } else {
+            setRoomVIPId("RV" + (listRoomVIP.countRoomVIP() + 1));
+        }
+    }
+
     public void input() {
-        Matcher matcher;
-        do {
-            System.out.print("Nhap ma phong VIP (ex: RV***): ");
-            setRoomVIPId(sc.nextLine());
-            String check = "^RV[0-9]{3}$";
-            Pattern pattern = Pattern.compile(check);
-            matcher = pattern.matcher(getRoomVIPId());
-        } while (!matcher.find());
+        // Matcher matcher;
+        // do {
+        // System.out.print("Nhap ma phong VIP (ex: RV***): ");
+        // setRoomVIPId(sc.nextLine());
+        // String check = "^RV[0-9]{3}$";
+        // Pattern pattern = Pattern.compile(check);
+        // matcher = pattern.matcher(getRoomVIPId());
+        // } while (!matcher.find());
 
         roomDetails.inputForRoom();
         System.out.print("Nhap gia roomVIP theo gio (per hour): ");
@@ -69,10 +81,11 @@ public class RoomVIP extends Room {
     @Override
     public void output() {
         System.out.printf("\n| %-20s %-25s %-50s %-28s %-28s %-28s %-28s |",
-                getRoomVIPId(), roomDetails.getName(), roomDetails.getRoomDetails(), getPricePerHour(), getPricePerNight(), getPricePerDay(), roomDetails.getStatus());
+                getRoomVIPId(), roomDetails.getName(), roomDetails.getRoomDetails(), getPricePerHour(),
+                getPricePerNight(), getPricePerDay(), roomDetails.getStatus());
     }
 
-    public void getLineFromFile(String line){
+    public void getLineFromFile(String line) {
         String[] str = line.split(";");
         setRoomVIPId(str[0]);
         roomDetails.setName(str[1]);
@@ -83,20 +96,21 @@ public class RoomVIP extends Room {
         roomDetails.setStatus(str[6]);
     }
 
-    public String mergeInformationToFile(){
+    public String mergeInformationToFile() {
         return getRoomVIPId() + ";" + roomDetails.getName() + ";" + roomDetails.getRoomDetails() + ";"
                 + getPricePerHour() + ";" + getPricePerNight() + ";" + getPricePerDay() + ";" + roomDetails.getStatus();
     }
 
-    public String getRoomVIPName(){
+    public String getRoomVIPName() {
         return roomDetails.getName();
     }
-    public String getStatusRoomVIP(){
+
+    public String getStatusRoomVIP() {
         return roomDetails.getStatus();
     }
-    public void setStatusRoomVIP(String statusRoomVIP){
+
+    public void setStatusRoomVIP(String statusRoomVIP) {
         roomDetails.setStatus(statusRoomVIP);
     }
-
 
 }

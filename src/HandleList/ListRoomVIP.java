@@ -154,6 +154,7 @@ public class ListRoomVIP implements TypeList {
     public void add() {
         RoomVIP roomVIP = new RoomVIP();
         roomVIP.input();
+        roomVIP.addRoomVIPID();
         addToListRoomVIP(roomVIP);
     }
 
@@ -179,6 +180,7 @@ public class ListRoomVIP implements TypeList {
                 RoomVIP VIP = new RoomVIP();
                 System.out.println("Nhap thong tin phong Standard!");
                 VIP.input();
+                VIP.setRoomVIPId(key);
                 listRoom[i] = VIP;
                 break;
             }
